@@ -1,3 +1,3 @@
 # Projects
 Odds and Ends
-[JS-calculator](projects/js-calculator/index.html)
+[JS-calculator](http://codepen.io/AkinZo/pen/JbZojg)
