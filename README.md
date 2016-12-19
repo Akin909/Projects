@@ -1,3 +1,3 @@
 # Projects
 Odds and Ends
-[JS-calculator](projects/js-calculator)
+[JS-calculator](projects/js-calculator/index.html)
