@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(119, 147, 231);
+  font-family: "Orbitron";
+}
+
+.outer-container{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.intro{
+  flex-basis:33%;
+}
+.body{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  flex-basis: 33%;
+}
+.clock{
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: solid black 2px;
+  height: 20em;
+  width: 20em;
+  border-radius: 50%;
+  background-color: rgba(213, 212, 223, 0.81);
+  align-items: center;
+  justify-content: center;
+  transform: perspective(40em) rotateY(30deg);
+  -webkit-box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
+  -moz-box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
+  box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
+
+}
+
+
+.input{
+    margin-left: 0.3em;
+    width: 6em;
+    height: 2em;
+    border: none;
+    border-radius: 8px;
+    padding: 0 0.3em;
+}
+
+.input.move{
+    position: absolute;
+    top: 350px;
+    height: 4em;
+    width: 9em;
+    perspective: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.brand{
+  margin-bottom: 1.2em;
+  font-weight: bolder;
+  font-size: 1.5em
+}
+
+.buttons{
+  margin-top: 1em;
+}
+
+
+.time{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  border: solid black 1px;
+  height: 3em;
+  width: 70%;
+  text-align: center;
+  padding:0.3em;
+  font-size: 1.5em;
+  margin: 0 0;
+  border-radius: 15px;
+  color:hsl(104, 80%, 49%);
+  background:rgba(13, 12, 12, 0.91);
+}
