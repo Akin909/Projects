@@ -1,10 +1,28 @@
-@import url('https://fonts.googleapis.com/css?family=Orbitron');
+@import url('https://fonts.googleapis.com/css?family=Orbitron|Bungee');
 
 body{
   margin: 0;
   padding: 0;
   background-color: rgb(119, 147, 231);
   font-family: "Orbitron";
+}
+
+.intro{
+  text-align: center;
+  font-size: 2em;
+  padding-top: 1em;
+  color: white;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: column;
+  flex-basis: 20%;
+  /*font-family: "Bungee";*/
+  /*text-decoration: underline;*/
 }
 
 .outer-container{
@@ -17,9 +35,7 @@ body{
   justify-content: center;
   align-content: center;
 }
-.intro{
-  flex-basis:33%;
-}
+
 .body{
   display: -webkit-flex;
   display: -ms-flex;
@@ -36,49 +52,103 @@ body{
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  border: solid black 2px;
+  /*border: solid black 2px;*/
   height: 20em;
   width: 20em;
   border-radius: 50%;
-  background-color: rgba(213, 212, 223, 0.81);
+  background-color: rgba(219,186,103,1);
+  /*rgba(213, 212, 223, 0.81);*/
   align-items: center;
   justify-content: center;
   transform: perspective(40em) rotateY(30deg);
-  -webkit-box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
-  -moz-box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
-  box-shadow: -12px 1px 5px 0px rgba(0,0,0,0.53);
+  -webkit-box-shadow: -18px 0px 0px -1px rgba(170, 155, 91, 1);
+  -moz-box-shadow: -18px 0px 0px -1px rgba(170, 155, 91, 1);
+  box-shadow: -18px 0px 0px -1px rgba(170, 155, 91, 1);
 
 }
+button:focus{
+  outline: none;
+}
+input:focus{
+  outline:none;
+}
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: black;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: black;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: black;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: black;
+}
 
 .input{
+    margin-top: 0.6em;
     margin-left: 0.3em;
     width: 6em;
     height: 2em;
     border: none;
     border-radius: 8px;
     padding: 0 0.3em;
+    font-family: "Orbitron";
+    text-align: center;
+    background-color: rgba(101, 195, 139, 0.97);
+    -webkit-box-shadow: -2px 0px 0px 0px rgba(111, 112, 116, 0.96);
+    box-shadow: -2px 0px 0px 0px rgba(111, 112, 116, 0.96);
+
 }
 
-.input.move{
-    position: absolute;
-    top: 350px;
+.shaking{
+  animation: shake 0.92s cubic-bezier(.36,.07,.19,.97) 0.5s 20 both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.move{
+    /*position: absolute;*/
+    /*top: 350px;*/
+    font-size: 12px;
     height: 4em;
     width: 9em;
-    perspective: none;
+    transform:none;
     transition: all 0.5s ease-in-out;
 }
 
 .brand{
-  margin-bottom: 1.2em;
+  margin-bottom: 0.8em;
   font-weight: bolder;
-  font-size: 1.5em
+  font-size: 1.5em;
+  border: solid 1px rgba(156, 150, 151, 0.91);
+  border-radius: 50%;
+  padding: 0.4em;
+  background-color: hsla(0, 1%, 66%, 0.82);
+}
+
+.controls{
+  margin-top: 1em;
+  margin-left: 0.3em;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(209, 88, 88);
+  -webkit-box-shadow: -4px 0px 0px 0px rgba(148, 73, 45, 1);
+  -moz-box-shadow: -4px 0px 0px 0px rgba(148, 73, 45, 1);
+  box-shadow: -4px 0px 0px 0px rgba(148, 73, 45, 1);
 }
 
 .buttons{
-  margin-top: 1em;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .time{
   display: -webkit-flex;
@@ -98,4 +168,35 @@ body{
   border-radius: 15px;
   color:hsl(104, 80%, 49%);
   background:rgba(13, 12, 12, 0.91);
+}
+
+.footer{
+  min-width: 6em;
+  text-align: center;
+  padding: 0.8em;
+  box-shadow:-6px 4px 2px 0px rgba(41, 39, 38, 0.95);
+  height: 4em;
+  width: auto;
+  background: hsla(0, 3%, 82%, 0.7);
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
