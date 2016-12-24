@@ -99,3 +99,62 @@ this.emptyCells = function(){
   }
   return indices;
 }
+
+//function to check if game is in a terminal state and updates the result
+
+this.isTerminal = function(){
+  var boardState = this.board;
+  //check rows
+  for(var i=0; i<=6; i+=3){
+    if(boardState !== "E"&& boardState[i] === boardState[i+1]&& boardState[i+2]){
+      this.result = boardState[i]+"-won";
+      return true;
+    }
+  }
+//check columns
+for(var i = 0; i<= 2; i+=1){
+  if(boardState[i] !== "E" && boardState[i]=== boardState[i+3] && boardState[i+3] === boardState[i+6]){
+    this.result = boardState[i] + "-won"; //update the state result
+    return true;
+  }
+}
+//check diagonals
+for(var i = 0; j = 4; i<= 2; i = i + 2, j = j - 2){
+  if(boardState!=="E" && boardState[i] == boardState[i+j] && boardState[i + j] === boardState[i + 2*j]){
+    this.result = boardState[i] + "-won";//update the state result
+    }
+  }
+var available = this.emptyCells();
+if(availbale.length == 0){
+    //the game is a draw
+    this.result = "draw";//update the state result
+    return true;
+  }else{
+    return false
+  }
+}
+
+var AI = function(level){
+    //private attribute: level of intelligence the player has
+    var levelOfIntelligece = level;
+
+    //private attribute: the game the player is playing
+    var game = {};
+//private recursive function that computes the minimax value of a game state
+
+function minimaxValue(state){...}
+/* private function: make the ai player take a blind move
+that is: choose cell to place the marker at random
+parameter turn [string]: the marker to play either x or o */
+function takeABlindMove(turn){
+/*private function: make the ai player take a novice move
+that is: */
+  }
+function takeANoviceMove(turn){
+
+  }
+function takeAMasterMove(turn){
+
+  }
+
+}
