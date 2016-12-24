@@ -1,0 +1,107 @@
+.outer-container{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border: solid black 1px;
+  margin: 3em;
+}
+.game-container{
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.game-row{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  border: solid green 1px;
+  /*width: 100%;*/
+  /*height: 6em;*/
+  flex-basis: 33%;
+}
+
+.game-square{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  flex-basis: 33%;
+  border: solid 1px black;
+  height: 10em;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+}
+
+.cross{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  font-size: 18vh;
+  text-align: center;
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+
+}
+
+.circle{
+  width:80%;
+  height: 80%;
+  border-radius: 50%;
+  border: 4px solid blue;
+}
+
+footer{
+  text-align: center;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+.left{
+  -webkit-transform-origin:center;;
+  -moz-transform-origin:center;;
+  -ms-transform-origin:center;;
+  -o-transform-origin:center;;
+  transform-origin:center;;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+.right{
+  -webkit-transform: rotate(40deg);
+  -ms-transform: rotate(40deg);
+  transform: rotate(40deg);
+  z-index: 2;
+}*/
