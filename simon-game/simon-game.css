@@ -1,0 +1,84 @@
+::root{
+--v
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+.outer-container{
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.top{
+  border: 1px solid #000;
+  width: 100%;
+  height: 10em;
+}
+.main{
+
+}
+.simon-exterior{
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid #000;
+  width: 20em;
+  height: 20em;
+  overflow: hidden;
+  border: 10px solid #000;
+}
+
+.quadrants{
+  overflow: hidden;
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%; height: 50%;
+  transform-origin: 0% 100%;
+  z-index: 3;
+}
+
+
+
+.controls{
+  border: 3px solid #000;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  background: white;
+  height: 40%;
+  width: 40%;
+  border-radius: 50%;
+  z-index: 10;
+}
+.one{
+  border-left: none;
+  border-top: none;
+  background: red;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.two{
+  border-right: none;
+  border-top: none;
+  background: blue;
+  transform: rotate(180deg);
+}
+.three{
+  border-right: none;
+  border-left: none;
+  background: green;
+  transform: rotate(90deg);
+}
+.four{
+  border-right: none;
+  background: yellow;
+}
