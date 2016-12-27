@@ -75,18 +75,25 @@ body{
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 40%;
+  margin-top: 10%;
   -ms-align-items: center;
   align-items: center;
 }
 .control-btn{
-  border: 1px solid #000;
+  /*border: 1px solid #000;*/
   width: 25%;
-  height: 1em;
+  height: 2em;
+  background: hsla(43, 43%, 37%, 0.97);
+  border-radius: 15px;
+  margin: 0.2em 0em;
+  text-align: center;
+  -webkit-box-shadow: -2px 2px 2px 0px black;
+  box-shadow: -2px 2px 2px 0px black;
+  color: #fff;
 }
 .one{
   /*border-right: solid 5px black;*/

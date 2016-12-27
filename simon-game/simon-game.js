@@ -18,23 +18,25 @@ function glow(event){
 function glowRandom(){
   let i = getRandomArbitrary();
   let counter=0;
-  counter += 1
-  // while(counter<3){
-  // quadrants[i].classList.add("active");
-  // compOrder.push(quadrants[i]);
-  // console.log(compOrder)
-  // setTimeout(()=>quadrants[i].classList.remove("active"),400);
-  // }
-  return;
+  counter += 1;
+  quadrants[i].classList.add("active");
+  compOrder.push(quadrants[i]);
+  console.log(compOrder)
+  setTimeout(()=>quadrants[i].classList.remove("active"),400);
+
 }
 function getRandomArbitrary(){
   return Math.round(Math.random()*3);
 }
 
-function setSequence(){
-  // debugger;
-let sequence = setInterval(()=>glowRandom(),1500);
-
+function setSequence(counter){
+  console.log("hello")
+  let sequence = setInterval(glowRandom,1500);
+  if(counter===3){
+    clearInterval(sequence)
+  }
+  // setInterval(()=>glowRandom(),1500);
 }
-// setTimeout(clearInterval(sequence),3000)
+//setTimeout(clearInterval(sequence),3000)
+stopBtn.addEventListener('click',()=>clearInterval(sequence))
 startBtn.addEventListener('click',setSequence)
