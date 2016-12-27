@@ -71,6 +71,23 @@ body{
   border-radius: 50%;
   z-index: 10;
 }
+.control-container{
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40%;
+  -ms-align-items: center;
+  align-items: center;
+}
+.control-btn{
+  border: 1px solid #000;
+  width: 25%;
+  height: 1em;
+}
 .one{
   /*border-right: solid 5px black;*/
   /*border-bottom: solid 10px black;*/
