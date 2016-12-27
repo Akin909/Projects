@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Playfair+Display|Orbitron');
 :root{
 --colorRed: red;
 --colorBlue: blue;
@@ -42,6 +42,8 @@ body{
   height: 30em;
   overflow: hidden;
   border: 20px solid #000;
+  -webkit-box-shadow: -8px 3px 5px 4px hsla(60, 1%, 18%, 0.97);
+  box-shadow: -8px 3px 5px 4px hsla(60, 1%, 18%, 0.97);
 }
 
 .quadrants{
@@ -95,9 +97,15 @@ body{
   box-shadow: -2px 2px 2px 0px black;
   color: #fff;
 }
+
+.score{
+  background: black;
+  color: hsla(106, 50%, 47%, 0.97);
+  font-family: "Orbitron";
+  padding-top: 0.3em;
+}
+
 .one{
-  /*border-right: solid 5px black;*/
-  /*border-bottom: solid 10px black;*/
   background: var(--colorRed);
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
