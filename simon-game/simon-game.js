@@ -4,30 +4,37 @@
 const startBtn = document.querySelector('.start');
 let playing = false;
 
-
-function start(){
+// function start(){
   const quadrants = document.querySelectorAll('.quadrants');
   const stopBtn = document.querySelector('.stop');
   const scoreOutput = document.querySelector('.score')
   const playerOrder = [];
   const compOrder = [];
+  let audio;
   let counter = 0;
   let counterLimit = 1
   let score = 0;
+
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
   let sequence = setInterval(glowRandom,1500);
 
-  quadrants.forEach((quadrant)=>addEventListener('click',glow))
+  quadrants.forEach((quadrant)=>addEventListener('click',glow));
+
+
+/* core glowing functionality seperated out to be reused */
+  function glowing(quadrant){
+      quadrant.classList.add("active");
+      audio.play();
+      setTimeout(()=>quadrant.classList.remove("active"),400);
+    }
 
   function glow(event){
 
     let quadrant = event.target;
-    const audio = quadrant.firstElementChild
+    audio = quadrant.firstElementChild;
     playerOrder.push(quadrant)
     // console.log("player",playerOrder,"player length",length)
-    quadrant.classList.add("active");
-    audio.play()
-    setTimeout(()=>quadrant.classList.remove("active"),400);
+    glowing(quadrant)
 
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
@@ -41,34 +48,34 @@ function start(){
     });
 
     if(correctAnswer){
+      setTimeout(function(){
         score += 1;
         scoreOutput.innerHTML  = score;
         counter = 0;
-        counterLimit +=1;
+        counterLimit +=1;},500)
       }
       else if(rigthLength && !correctAnswer){
+          console.log("replay sequence from here",quadrant)
           scoreOutput.innerHTML = "!!";
-          function replaySequence(quadrant){
-            console.log("quadrant",quadrant)
-            if(compOrder.indexOf(quadrant)===-1){
-              compOrder.forEach((quadrant)=>glow())
-            }
-          }
-        replaySequence(quadrant)
+      /* function beneath is to allow the sequence to be repeated if the incorrect answer is input*/
+            setTimeout(
+              function(){
+                for(let j=0;j<compOrder.length;j += 1){
+                setTimeout(glowing(compOrder[j]),600)
+              }},1500)
+      }
     }
-  }
 
   function glowRandom(){
     let i = getRandomArbitrary();
+    audio = quadrants[i].firstElementChild
     counter++;
     console.log(counter)
     /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
-      quadrants[i].classList.add("active");
       compOrder.push(quadrants[i]);
+      glowing(quadrants[i])
       // console.log("computer",compOrder,"length",compOrder.length)
-      quadrants[i].firstElementChild.play()
-      setTimeout(()=>quadrants[i].classList.remove("active"),600);
     }
     else{
       // counter+=0
@@ -84,7 +91,7 @@ function start(){
       clearInterval(sequence);
     }
   stopBtn.addEventListener('click',stopSequence)
-}
-
-
+// }
+//
+//
 // startBtn.addEventListener('click',start)
