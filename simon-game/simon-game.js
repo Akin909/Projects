@@ -9,7 +9,7 @@ let playing = false;
   const stopBtn = document.querySelector('.stop');
   const scoreOutput = document.querySelector('.score')
   const playerOrder = [];
-  const compOrder = [];
+  let compOrder = [];
   let audio;
   let counter = 0;
   let counterLimit = 1
@@ -46,23 +46,32 @@ let playing = false;
         return element === compOrder[i];
       }
     });
-
+    // if(compOrder.length === counterLimit){compOrder = []}
     if(correctAnswer){
       setTimeout(function(){
         score += 1;
         scoreOutput.innerHTML  = score;
         counter = 0;
         counterLimit +=1;},500)
+        /* ISSUE: if compOrder is reset game reinitiates*/
+        if(compOrder.length === counterLimit){compOrder = []}
       }
+
       else if(rigthLength && !correctAnswer){
           console.log("replay sequence from here",quadrant)
           scoreOutput.innerHTML = "!!";
-      /* function beneath is to allow the sequence to be repeated if the incorrect answer is input*/
-            setTimeout(
-              function(){
-                for(let j=0;j<compOrder.length;j += 1){
-                setTimeout(glowing(compOrder[j]),600)
-              }},1500)
+      /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
+        function repeatPattern(j){
+          setTimeout(()=>glowing(compOrder[j]),600*j)
+        }
+        console.log(compOrder);
+          for(let j=0;j<compOrder.length;j += 1){
+              repeatPattern(j);
+            }
+        /* Once replayed game should continue on by iterating counter */
+          setTimeout(function(){
+              counter = 0;
+              counterLimit +=1;},500)
       }
     }
 
@@ -71,14 +80,15 @@ let playing = false;
     audio = quadrants[i].firstElementChild
     counter++;
     console.log(counter)
+
     /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
       compOrder.push(quadrants[i]);
       glowing(quadrants[i])
-      // console.log("computer",compOrder,"length",compOrder.length)
-    }
-    else{
-      // counter+=0
+      console.log("computer",compOrder,"length",compOrder.length)
+      console.log(compOrder.length === counterLimit)
+      }else{
+            // counter+=0
       /*clearInterval(sequence)*/
     }
   }
