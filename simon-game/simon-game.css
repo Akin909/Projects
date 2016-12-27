@@ -1,10 +1,16 @@
-::root{
---v
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Playfair+Display');
+:root{
+--colorRed: red;
+--colorBlue: blue;
+--colorYellow: rgba(237, 235, 31, 1);
+--colorGreen: green;
 }
 
 body{
   margin: 0;
   padding: 0;
+  background: rgb(109, 166, 226);
+  font-family: "Indie Flower",cursive;
 }
 .outer-container{
   -webkit-flex-direction: column;
@@ -19,9 +25,11 @@ body{
   flex: 1;
 }
 .top{
-  border: 1px solid #000;
   width: 100%;
-  height: 10em;
+  height: auto;
+  text-align: center;
+  font-size: 4em;
+  padding: 0.5em;
 }
 .main{
 
@@ -30,10 +38,10 @@ body{
   position: relative;
   border-radius: 50%;
   border: 1px solid #000;
-  width: 20em;
-  height: 20em;
+  width: 30em;
+  height: 30em;
   overflow: hidden;
-  border: 10px solid #000;
+  border: 20px solid #000;
 }
 
 .quadrants{
@@ -43,15 +51,20 @@ body{
   width: 50%; height: 50%;
   transform-origin: 0% 100%;
   z-index: 3;
+  opacity: 0.7;
+  /*transition: all 1s ease-in-out;*/
+}
+
+.active{
+  opacity: 1;
 }
 
 
-
 .controls{
-  border: 3px solid #000;
+  border: 10px solid #000;
   position: absolute;
-  top: 30%;
-  left: 30%;
+  top: 28%;
+  left: 28%;
   background: white;
   height: 40%;
   width: 40%;
@@ -59,9 +72,9 @@ body{
   z-index: 10;
 }
 .one{
-  border-left: none;
-  border-top: none;
-  background: red;
+  /*border-right: solid 5px black;*/
+  /*border-bottom: solid 10px black;*/
+  background: var(--colorRed);
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
@@ -69,16 +82,21 @@ body{
 .two{
   border-right: none;
   border-top: none;
-  background: blue;
+  background: var(--colorBlue);
   transform: rotate(180deg);
 }
 .three{
   border-right: none;
   border-left: none;
-  background: green;
+  background: var(--colorGreen);
   transform: rotate(90deg);
 }
 .four{
   border-right: none;
-  background: yellow;
+  background: var(--colorYellow);
+}
+
+.bottom{
+  padding: 1em;
+  font-size: 2em;
 }
