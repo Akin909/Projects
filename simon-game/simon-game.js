@@ -1,3 +1,6 @@
+//Is for commented out code
+/* Is for commenting code in general */
+
 const quadrants = document.querySelectorAll('.quadrants');
 const start = document.querySelector('.controls')
 quadrants.forEach((quadrant)=>addEventListener('click',glow))
@@ -10,35 +13,46 @@ let counter = 0;
 let counterLimit = 3
 let score = 0;
 
+
+
 function glow(event){
+
   let quadrant = event.target;
   playerOrder.push(quadrant)
-  console.log("player",playerOrder)
+  console.log("player",playerOrder,"player length",length)
   quadrant.classList.add("active");
   setTimeout(()=>quadrant.classList.remove("active"),400);
-  //Compares player input to computer order then ... do something
-  if(playerOrder.every((element,i)=>{
-    if(playerOrder.length===compOrder.length){
-    return element === compOrder[i];
-      }
-    })){
+  /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
+  let rigthLength = (playerOrder.length === compOrder.length);
+
+  /*Compares player input to computer order then adds score and increases counter;*/
+
+  let correctAnswer = playerOrder.every((element,i)=>{
+    if(rigthLength){
+      return element === compOrder[i];
+    }
+  });
+
+  if(correctAnswer){
       // alert("EQUALS");
       score += 1;
       scoreOutput.innerHTML  = score;
       counter = 0;
       counterLimit +=1;
-    };
+    } else if(rigthLength && !correctAnswer){
+      scoreOutput.innerHTML = "!!"
+  }
 }
 
 function glowRandom(){
   let i = getRandomArbitrary();
   counter++;
   console.log(counter)
-  //counter stops the function once it has run a certain number of times
+  /*counter stops the function once it has run a certain number of times*/
   if(counter<=counterLimit){
     quadrants[i].classList.add("active");
     compOrder.push(quadrants[i]);
-    console.log("computer",compOrder)
+    console.log("computer",compOrder,"length",compOrder.length)
     setTimeout(()=>quadrants[i].classList.remove("active"),600);
   }
   // else{
@@ -49,10 +63,9 @@ function glowRandom(){
 function getRandomArbitrary(){
   return Math.round(Math.random()*3);
 }
-//Sets the interval has global scope so sets onload, is the only way that it can be cleared
+/*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 let sequence = setInterval(glowRandom,1500);
 function setSequence(event){
-
   if(event.target === stopBtn){
     clearInterval(sequence);
   }
