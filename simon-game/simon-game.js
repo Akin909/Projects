@@ -32,9 +32,12 @@ let playing = false;
 
     let quadrant = event.target;
     audio = quadrant.firstElementChild;
-    playerOrder.push(quadrant)
+    playerOrder.push(quadrant);
+    /*Adapting wes bos splicing to keep array same size as player input array*/
+    compOrder.splice(-playerOrder.length-1,compOrder.length - playerOrder.length)
+    console.log("spliced", compOrder);
     // console.log("player",playerOrder,"player length",length)
-    glowing(quadrant)
+    glowing(quadrant);
 
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
@@ -46,7 +49,6 @@ let playing = false;
         return element === compOrder[i];
       }
     });
-    // if(compOrder.length === counterLimit){compOrder = []}
     if(correctAnswer){
       setTimeout(function(){
         score += 1;
@@ -54,24 +56,25 @@ let playing = false;
         counter = 0;
         counterLimit +=1;},500)
         /* ISSUE: if compOrder is reset game reinitiates*/
-        if(compOrder.length === counterLimit){compOrder = []}
-      }
+        // if(compOrder.length === counterLimit){compOrder = []}
 
-      else if(rigthLength && !correctAnswer){
-          console.log("replay sequence from here",quadrant)
+      }else if(rigthLength && !correctAnswer){
           scoreOutput.innerHTML = "!!";
+          setTimeout(()=>scoreOutput.innerHTML = score,800)
       /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern(j){
           setTimeout(()=>glowing(compOrder[j]),600*j)
         }
-        console.log(compOrder);
+        // console.log("computer array",compOrder);
           for(let j=0;j<compOrder.length;j += 1){
               repeatPattern(j);
             }
         /* Once replayed game should continue on by iterating counter */
+        if(correctAnswer){
           setTimeout(function(){
               counter = 0;
-              counterLimit +=1;},500)
+              counterLimit +=1;},500);
+        }
       }
     }
 
@@ -86,7 +89,6 @@ let playing = false;
       compOrder.push(quadrants[i]);
       glowing(quadrants[i])
       console.log("computer",compOrder,"length",compOrder.length)
-      console.log(compOrder.length === counterLimit)
       }else{
             // counter+=0
       /*clearInterval(sequence)*/
