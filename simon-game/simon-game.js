@@ -10,33 +10,37 @@ const compOrder = [];
 function glow(event){
   let quadrant = event.target;
   playerOrder.push(quadrant)
-  console.log(playerOrder)
+  // console.log(playerOrder)
   quadrant.classList.add("active");
   setTimeout(()=>quadrant.classList.remove("active"),400);
 }
-
+let counter = 0;
 function glowRandom(){
   let i = getRandomArbitrary();
-  let counter=0;
-  counter += 1;
+  counter++;
+  console.log(counter)
+  //counter stops the function once it has run a certain number of times
+  if(counter<=3){
   quadrants[i].classList.add("active");
   compOrder.push(quadrants[i]);
-  console.log(compOrder)
-  setTimeout(()=>quadrants[i].classList.remove("active"),400);
+  // console.log(compOrder)
+  setTimeout(()=>quadrants[i].classList.remove("active"),600);
+}
 
 }
 function getRandomArbitrary(){
   return Math.round(Math.random()*3);
 }
+//Sets the interval has global scope so sets onload, is the only way that it can be cleared
+let sequence = setInterval(glowRandom,1500);
+function setSequence(event){
 
-function setSequence(counter){
-  console.log("hello")
-  let sequence = setInterval(glowRandom,1500);
-  if(counter===3){
-    clearInterval(sequence)
+  if(event.target === stopBtn){
+    clearInterval(sequence);
   }
-  // setInterval(()=>glowRandom(),1500);
+
 }
+// ()=>clearInterval(sequence)
 //setTimeout(clearInterval(sequence),3000)
-stopBtn.addEventListener('click',()=>clearInterval(sequence))
+stopBtn.addEventListener('click',setSequence)
 startBtn.addEventListener('click',setSequence)
