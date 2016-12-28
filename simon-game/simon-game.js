@@ -4,7 +4,6 @@
 const startBtn = document.querySelector('.start');
 let playing = false;
 
-// function start(){
   const quadrants = document.querySelectorAll('.quadrants');
   const stopBtn = document.querySelector('.stop');
   const scoreOutput = document.querySelector('.score')
@@ -14,15 +13,18 @@ let playing = false;
   let counter = 0;
   let counterLimit = 1
   let score = 0;
-
+  let sequence;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
-  let sequence = setInterval(glowRandom,1500);
 
+function begin(){
+    sequence = setInterval(function(){glowRandom()},1500)
+}
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
 
 
 /* core glowing functionality seperated out to be reused */
   function glowing(quadrant){
+      console.log(quadrant)
       quadrant.classList.add("active");
       audio.play();
       setTimeout(()=>quadrant.classList.remove("active"),400);
@@ -33,9 +35,7 @@ let playing = false;
     let quadrant = event.target;
     audio = quadrant.firstElementChild;
     playerOrder.push(quadrant);
-    /*Adapting wes bos splicing to keep array same size as player input array*/
-    compOrder.splice(-playerOrder.length-1,compOrder.length - playerOrder.length)
-    console.log("spliced", compOrder);
+
     // console.log("player",playerOrder,"player length",length)
     glowing(quadrant);
 
@@ -55,8 +55,12 @@ let playing = false;
         scoreOutput.innerHTML  = score;
         counter = 0;
         counterLimit +=1;},500)
-        /* ISSUE: if compOrder is reset game reinitiates*/
-        // if(compOrder.length === counterLimit){compOrder = []}
+        if(playerOrder<=counterLimit){
+        /* ISSUE: if compOrder is reset game reinitiates,need to remove previous sequences from array*/
+          // compOrder.splice(0,)
+        }
+
+
 
       }else if(rigthLength && !correctAnswer){
           scoreOutput.innerHTML = "!!";
@@ -82,6 +86,7 @@ let playing = false;
     let i = getRandomArbitrary();
     audio = quadrants[i].firstElementChild
     counter++;
+    console.log("i",i)
     console.log(counter)
 
     /*counter stops the function once it has run a certain number of times*/
@@ -102,8 +107,5 @@ let playing = false;
   function stopSequence(event){
       clearInterval(sequence);
     }
-  stopBtn.addEventListener('click',stopSequence)
-// }
-//
-//
-// startBtn.addEventListener('click',start)
+stopBtn.addEventListener('click',stopSequence)
+startBtn.addEventListener('click',begin)
