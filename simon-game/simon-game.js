@@ -24,7 +24,7 @@ function begin(){
 
 /* core glowing functionality seperated out to be reused */
   function glowing(quadrant){
-      console.log(quadrant)
+      // console.log(quadrant)
       quadrant.classList.add("active");
       audio.play();
       setTimeout(()=>quadrant.classList.remove("active"),400);
@@ -36,7 +36,7 @@ function begin(){
         audio = quadrant.firstElementChild;
         playerOrder.push(quadrant);
         glowing(quadrant);
-        // console.log("player",playerOrder,"player length",length)
+        console.log("player",playerOrder,"player length",length)
 
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
@@ -54,23 +54,23 @@ function begin(){
         scoreOutput.innerHTML  = score;
         counter = 0;
         counterLimit +=1;},500);
-        console.log("before wipe",compOrder);
+        // console.log("before wipe",compOrder);
         compOrder = [];
         playerOrder =[];
-        console.log("after wipe",compOrder)
+        // console.log("after wipe",compOrder)
 
 
       }else if(rigthLength && !correctAnswer){
         scoreOutput.innerHTML = "!!";
-        setTimeout(()=>scoreOutput.innerHTML = score,800)
+        setTimeout(()=>scoreOutput.innerHTML = score,1000)
       /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern(j){
           setTimeout(()=>glowing(compOrder[j]),800*j)
         }
-        // console.log("computer array",compOrder);
-          for(let j=0;j<compOrder.length;j += 1){
+        console.log("to be replayed: compOrder",compOrder);
+          setTimeout(()=>{for(let j=0;j<compOrder.length;j += 1){
               repeatPattern(j);
-            }
+            }},1000)
         /* Once replayed game should continue on by iterating counter */
         if(correctAnswer){
           // setTimeout(function(){
@@ -83,8 +83,8 @@ function begin(){
     let i = getRandomArbitrary();
     audio = quadrants[i].firstElementChild
     counter++;
-    console.log("i",i)
-    console.log(counter)
+    // console.log("i",i)
+    // console.log("counter",counter)
 
     /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
