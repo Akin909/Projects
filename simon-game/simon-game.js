@@ -5,34 +5,37 @@ const startBtn = document.querySelector('.start');
 let playing = false;
 
   const quadrants = document.querySelectorAll('.quadrants');
+  console.log(quadrants)
   const stopBtn = document.querySelector('.stop');
   const scoreOutput = document.querySelector('.score')
   let playerOrder = [];
   let compOrder = [];
+  let randomSequence = [];
   let audio;
   let counter = 0;
   let counterLimit = 1
   let score = 0;
   let sequence;
+  // let gameSequence;
   let reset = false;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 
 function begin(){
-    sequence = setInterval(function(){glowRandom()},1000)
+  sequence = setInterval(function(){glowRandom()},1000);
+  generateArray();
 }
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
 
 
 /* core glowing functionality seperated out to be reused */
   function glowing(quadrant){
-      // console.log(quadrant)
       quadrant.classList.add("active");
+      audio = quadrant.firstElementChild;
       audio.play();
       setTimeout(()=>quadrant.classList.remove("active"),400);
     }
 
   function glow(event){
-
     if(Array.from(quadrants).indexOf(event.target)===-1){return ;}
         let quadrant = event.target;
         audio = quadrant.firstElementChild;
@@ -84,29 +87,41 @@ function begin(){
     }
   }
   function glowRandom(){
-    let i = getRandomArbitrary();
-    audio = quadrants[i].firstElementChild
     counter++;
     console.log("counter",counter)
-
+    console.log("compOrder",compOrder)
     /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
-      compOrder.push(quadrants[i]);
-      glowing(quadrants[i])
-      // console.log("computer",compOrder,"length",compOrder.length)
-    }else if(counter>20){
+      setTimeout(()=>{
+        for(let i = 0;i<compOrder.length-1; i += 1 ){
+          setTimeout(()=>glowing(compOrder[i]),800*i);
+      }
+    },800)
+    console.log("computer",compOrder,"length",compOrder.length)
+    } else if(counter>20){
       clearInterval(sequence)
         /* Do something with i which is still iterating */
     }
-  }
+}
 
-  function getRandomArbitrary(){
-    return Math.round(Math.random()*3);
+  function generateArray(){
+    for(let j = 0;j<counterLimit;j += 1){
+      el = Math.round(Math.random()*3);
+      randomSequence.push(el);
+    }
+    randomSequence.forEach((element)=>{
+      quadrants.forEach((quadrant)=>{
+      if(element === Array.from(quadrants).indexOf(quadrant)){
+        compOrder.push(quadrant);
+      }
+    })
+  })
+    return compOrder;
   }
 
   function stopSequence(event){
       clearInterval(sequence);
-      console.log("stop game")
+      console.log("stop game");
     }
-stopBtn.addEventListener('click',stopSequence)
-startBtn.addEventListener('click',begin)
+stopBtn.addEventListener('click',stopSequence);
+startBtn.addEventListener('click',begin);
