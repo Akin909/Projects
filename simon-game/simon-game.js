@@ -38,7 +38,7 @@ function begin(){
         audio = quadrant.firstElementChild;
         playerOrder.push(quadrant);
         glowing(quadrant);
-        console.log("player",playerOrder);
+        // console.log("player",playerOrder);
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
 
@@ -67,17 +67,18 @@ function begin(){
       /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern(j){
           setTimeout(()=>glowing(compOrder[j]),800*j);
+
         }
           setTimeout(()=>{
             for(let j=0;j<compOrder.length;j += 1){
               repeatPattern(j);
             }
-            reset = true
+
           },1000)
         /* Once replayed game should continue on by iterating counter */
-
+        if(correctAnswer){reset = true;}
         if(reset){
-          debugger;
+          // debugger;
           counter = 0;
         }
     }
@@ -86,14 +87,15 @@ function begin(){
     let i = getRandomArbitrary();
     audio = quadrants[i].firstElementChild
     counter++;
-    // console.log("counter",counter)
+    console.log("counter",counter)
 
     /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
       compOrder.push(quadrants[i]);
       glowing(quadrants[i])
-      console.log("computer",compOrder,"length",compOrder.length)
-      }else{
+      // console.log("computer",compOrder,"length",compOrder.length)
+    }else if(counter>20){
+      clearInterval(sequence)
         /* Do something with i which is still iterating */
     }
   }
