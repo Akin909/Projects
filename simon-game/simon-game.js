@@ -15,19 +15,20 @@ let playing = false;
   let counterLimit = 1
   let score = 0;
   let sequence;
-  // let gameSequence;
-  let reset = false;
+  let on = false;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 
 function begin(){
-  // sequence = setInterval(function(){glowRandom()},1000);
-  glowRandom()
+  on = true;
+  glowRandom();
   generateArray();
+
   }
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
 
 
 /* core glowing functionality seperated out to be reused */
+// if(on){
   function glowing(quadrant){
       quadrant.classList.add("active");
       audio = quadrant.firstElementChild;
@@ -61,7 +62,8 @@ function begin(){
         playerOrder =[];
         glowRandom();
       }
-      else if(rigthLength && !correctAnswer){
+      //rigthLength && !correctAnswer
+      else if(compOrder.indexOf(quadrant)=== -1 || playerOrder.indexOf(quadrant)!==compOrder.indexOf(quadrant)){
         scoreOutput.innerHTML = "!!";
         setTimeout(()=>scoreOutput.innerHTML = score,1000)
         playerOrder = [];
@@ -96,9 +98,6 @@ function begin(){
     },1000);
 
     console.log("computer",compOrder,"length",compOrder.length);
-    if(counter>20){
-      clearInterval(sequence);
-    }
 }
 
   function generateArray(){
@@ -119,10 +118,6 @@ function begin(){
   function randomNum(){
     return Math.floor(Math.random()*3)
   }
+// }
 
-  function stopSequence(event){
-      clearInterval(sequence);
-      console.log("stop game");
-    }
-stopBtn.addEventListener('click',stopSequence);
 startBtn.addEventListener('click',begin);
