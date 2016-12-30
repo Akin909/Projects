@@ -5,7 +5,6 @@ const startBtn = document.querySelector('.start');
 let playing = false;
 
   const quadrants = document.querySelectorAll('.quadrants');
-  console.log(quadrants)
   const stopBtn = document.querySelector('.stop');
   const scoreOutput = document.querySelector('.score')
   let playerOrder = [];
@@ -52,7 +51,6 @@ function begin(){
         return element === compOrder[i];
       }
     });
-    console.log(correctAnswer);
     if(correctAnswer){
       setTimeout(function(){
         score += 1;
@@ -90,19 +88,16 @@ function begin(){
   function glowRandom(){
     /*counter stops the function once it has run a certain number of times*/
     counter++;
-    console.log("counter",counter)
-    if(counter<=counterLimit){
       setTimeout(()=>{
         for(let i = 0;i<compOrder.length; i += 1 ){
           console.log("iterating through quadrants");
           setTimeout(()=>glowing(compOrder[i]),800*(i));
       }
-    },1000)
+    },1000);
 
-    console.log("computer",compOrder,"length",compOrder.length)
-    } else if(counter>20){
-      clearInterval(sequence)
-        /* Do something with i which is still iterating */
+    console.log("computer",compOrder,"length",compOrder.length);
+    if(counter>20){
+      clearInterval(sequence);
     }
 }
 
