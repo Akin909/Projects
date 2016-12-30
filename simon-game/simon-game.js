@@ -21,9 +21,10 @@ let playing = false;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 
 function begin(){
-  sequence = setInterval(function(){glowRandom()},1000);
+  // sequence = setInterval(function(){glowRandom()},1000);
+  glowRandom()
   generateArray();
-}
+  }
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
 
 
@@ -53,17 +54,16 @@ function begin(){
     });
     console.log(correctAnswer);
     if(correctAnswer){
-
       setTimeout(function(){
         score += 1;
         scoreOutput.innerHTML  = score;
         counter = 0;
         counterLimit +=1;},500);
-        compOrder = [];
+        compOrder.push(quadrants[randomNum()])
         playerOrder =[];
-
-
-      } else if(rigthLength && !correctAnswer){
+        glowRandom();
+      }
+      else if(rigthLength && !correctAnswer){
         scoreOutput.innerHTML = "!!";
         setTimeout(()=>scoreOutput.innerHTML = score,1000)
         playerOrder = [];
@@ -81,22 +81,24 @@ function begin(){
         /* Once replayed game should continue on by iterating counter */
         if(correctAnswer){reset = true;}
         if(reset){
-          // debugger;
           counter = 0;
+          compOrder.push(quadrants[randomNum()]);
+          glowRandom();
         }
     }
   }
   function glowRandom(){
+    /*counter stops the function once it has run a certain number of times*/
     counter++;
     console.log("counter",counter)
-    console.log("compOrder",compOrder)
-    /*counter stops the function once it has run a certain number of times*/
     if(counter<=counterLimit){
       setTimeout(()=>{
-        for(let i = 0;i<compOrder.length-1; i += 1 ){
-          setTimeout(()=>glowing(compOrder[i]),800*i);
+        for(let i = 0;i<compOrder.length; i += 1 ){
+          console.log("iterating through quadrants");
+          setTimeout(()=>glowing(compOrder[i]),800*(i));
       }
-    },800)
+    },1000)
+
     console.log("computer",compOrder,"length",compOrder.length)
     } else if(counter>20){
       clearInterval(sequence)
@@ -105,18 +107,22 @@ function begin(){
 }
 
   function generateArray(){
+    compOrder = [];
     for(let j = 0;j<counterLimit;j += 1){
       el = Math.round(Math.random()*3);
       randomSequence.push(el);
     }
     randomSequence.forEach((element)=>{
       quadrants.forEach((quadrant)=>{
-      if(element === Array.from(quadrants).indexOf(quadrant)){
+      if(element === Array.from(quadrants).indexOf(quadrant)&&compOrder.length<counterLimit){
         compOrder.push(quadrant);
       }
     })
   })
     return compOrder;
+  }
+  function randomNum(){
+    return Math.floor(Math.random()*3)
   }
 
   function stopSequence(event){
