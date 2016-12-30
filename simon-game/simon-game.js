@@ -14,6 +14,7 @@ let playing = false;
   let counterLimit = 1
   let score = 0;
   let sequence;
+  let reset = false;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 
 function begin(){
@@ -31,59 +32,60 @@ function begin(){
     }
 
   function glow(event){
+
     if(Array.from(quadrants).indexOf(event.target)===-1){return ;}
         let quadrant = event.target;
         audio = quadrant.firstElementChild;
         playerOrder.push(quadrant);
         glowing(quadrant);
-        console.log("player",playerOrder,"player length",length)
-
+        console.log("player",playerOrder);
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
 
     /*Compares player input to computer order then adds score and increases counter;*/
-
     let correctAnswer = playerOrder.every((element,i)=>{
       if(rigthLength){
         return element === compOrder[i];
       }
     });
+    console.log(correctAnswer);
     if(correctAnswer){
+
       setTimeout(function(){
         score += 1;
         scoreOutput.innerHTML  = score;
         counter = 0;
         counterLimit +=1;},500);
-        // console.log("before wipe",compOrder);
         compOrder = [];
         playerOrder =[];
-        // console.log("after wipe",compOrder)
 
 
-      }else if(rigthLength && !correctAnswer){
+      } else if(rigthLength && !correctAnswer){
         scoreOutput.innerHTML = "!!";
         setTimeout(()=>scoreOutput.innerHTML = score,1000)
+        playerOrder = [];
       /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern(j){
-          setTimeout(()=>glowing(compOrder[j]),800*j)
+          setTimeout(()=>glowing(compOrder[j]),800*j);
         }
-        console.log("to be replayed: compOrder",compOrder);
-          setTimeout(()=>{for(let j=0;j<compOrder.length;j += 1){
+          setTimeout(()=>{
+            for(let j=0;j<compOrder.length;j += 1){
               repeatPattern(j);
-            }},1000)
+            }
+            reset = true
+          },1000)
         /* Once replayed game should continue on by iterating counter */
-        if(correctAnswer){
-          // setTimeout(function(){
-          //     counter = 0;
-          //     counterLimit +=1;},500);
+
+        if(reset){
+          debugger;
+          counter = 0;
         }
-      }
+    }
   }
   function glowRandom(){
     let i = getRandomArbitrary();
     audio = quadrants[i].firstElementChild
     counter++;
-    // console.log("i",i)
     // console.log("counter",counter)
 
     /*counter stops the function once it has run a certain number of times*/
@@ -92,8 +94,7 @@ function begin(){
       glowing(quadrants[i])
       console.log("computer",compOrder,"length",compOrder.length)
       }else{
-            // counter = 0;
-      //clearInterval(sequence)
+        /* Do something with i which is still iterating */
     }
   }
 
@@ -103,6 +104,7 @@ function begin(){
 
   function stopSequence(event){
       clearInterval(sequence);
+      console.log("stop game")
     }
 stopBtn.addEventListener('click',stopSequence)
 startBtn.addEventListener('click',begin)
