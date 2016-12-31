@@ -1,8 +1,7 @@
 //Is for commented out code
 /* Is for commenting code in general */
 
-const startBtn = document.querySelector('.start');
-let playing = false;
+const toggleStart = document.querySelector('#slider-input');
 
   const quadrants = document.querySelectorAll('.quadrants');
   const stopBtn = document.querySelector('.stop');
@@ -19,16 +18,17 @@ let playing = false;
   /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
 
 function begin(){
-  on = true;
+  on = !on;//turns game on and off;
   glowRandom();
   generateArray();
+  if(!on){scoreOutput.innerHTML =""}
+}
 
-  }
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
 
 
 /* core glowing functionality seperated out to be reused */
-// if(on){
+
   function glowing(quadrant){
       quadrant.classList.add("active");
       audio = quadrant.firstElementChild;
@@ -37,12 +37,12 @@ function begin(){
     }
 
   function glow(event){
-    if(Array.from(quadrants).indexOf(event.target)===-1){return ;}
+    if(Array.from(quadrants).indexOf(event.target)===-1||!on){return ;}
         let quadrant = event.target;
         audio = quadrant.firstElementChild;
         playerOrder.push(quadrant);
         glowing(quadrant);
-        // console.log("player",playerOrder);
+
     /*Right length is declared here as it must be within this functions scope to register changes an compare properly*/
     let rigthLength = (playerOrder.length === compOrder.length);
 
@@ -89,6 +89,7 @@ function begin(){
   }
   function glowRandom(){
     /*counter stops the function once it has run a certain number of times*/
+    if(!on){return;}
     counter++;
       setTimeout(()=>{
         for(let i = 0;i<compOrder.length; i += 1 ){
@@ -97,7 +98,7 @@ function begin(){
       }
     },1000);
 
-    console.log("computer",compOrder,"length",compOrder.length);
+    // console.log("computer",compOrder,"length",compOrder.length);
 }
 
   function generateArray(){
@@ -118,6 +119,6 @@ function begin(){
   function randomNum(){
     return Math.floor(Math.random()*3)
   }
-// }
 
-startBtn.addEventListener('click',begin);
+
+toggleStart.addEventListener('click',begin);
