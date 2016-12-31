@@ -5,7 +5,8 @@ const toggleStart = document.querySelector('#slider-input');
 
   const quadrants = document.querySelectorAll('.quadrants');
   const stopBtn = document.querySelector('.stop');
-  const scoreOutput = document.querySelector('.score')
+  const scoreOutput = document.querySelector('.score');
+  const strictBtn = document.querySelector('.strict');
   let playerOrder = [];
   let compOrder = [];
   let randomSequence = [];
@@ -14,14 +15,30 @@ const toggleStart = document.querySelector('#slider-input');
   let counterLimit = 1
   let score = 0;
   let sequence;
+  let strict;
+  let reset = false;
   let on = false;
-  /*Sets the interval has global scope so sets onload, is the only way that it can be cleared*/
+
+
+function restart(){
+  scoreOutput.innerHTML ="";
+  score = 0;
+  compOrder =[];
+  counterLimit = 1;
+  }
 
 function begin(){
   on = !on;//turns game on and off;
+  if(!on){
+    restart();
+  };
+  if(strict){
+    on = true;
+    // glowRandom();
+    // generateArray();
+  }
   glowRandom();
   generateArray();
-  if(!on){scoreOutput.innerHTML =""}
 }
 
   quadrants.forEach((quadrant)=>addEventListener('click',glow));
@@ -62,11 +79,15 @@ function begin(){
         playerOrder =[];
         glowRandom();
       }
-      //rigthLength && !correctAnswer
+
       else if(compOrder.indexOf(quadrant)=== -1 || playerOrder.indexOf(quadrant)!==compOrder.indexOf(quadrant)){
         scoreOutput.innerHTML = "!!";
         setTimeout(()=>scoreOutput.innerHTML = score,1000)
         playerOrder = [];
+        if(strict){
+          compOrder = [];
+          generateArray();
+        }
       /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern(j){
           setTimeout(()=>glowing(compOrder[j]),800*j);
@@ -90,15 +111,14 @@ function begin(){
   function glowRandom(){
     /*counter stops the function once it has run a certain number of times*/
     if(!on){return;}
-    counter++;
+      counter++;
       setTimeout(()=>{
         for(let i = 0;i<compOrder.length; i += 1 ){
-          console.log("iterating through quadrants");
           setTimeout(()=>glowing(compOrder[i]),800*(i));
       }
     },1000);
 
-    // console.log("computer",compOrder,"length",compOrder.length);
+    console.log("computer",compOrder,"length",compOrder.length);
 }
 
   function generateArray(){
@@ -119,6 +139,8 @@ function begin(){
   function randomNum(){
     return Math.floor(Math.random()*3)
   }
-
-
+strictBtn.addEventListener('click',()=> {
+  strict = true;
+  begin();
+})
 toggleStart.addEventListener('click',begin);

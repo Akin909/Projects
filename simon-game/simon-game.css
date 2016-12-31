@@ -157,10 +157,10 @@ transform: translateX(26px);
 }
 
 .slider.round{
-  border-radius: 34px;
+  border-radius: 8px;
 }
 .slider.round:before{
-border-radius: 50%;
+border-radius: 25%;
 }
 
 .strict{
