@@ -6,6 +6,7 @@ const quadrants = document.querySelectorAll( '.quadrants' );
 const stopBtn = document.querySelector( '.stop' );
 const scoreOutput = document.querySelector( '.score' );
 const strictBtn = document.querySelector( '.strict' );
+const light = document.querySelector('.light');
 let playerOrder = [ ];
 let compOrder = [ ];
 let randomSequence = [ ];
@@ -17,22 +18,24 @@ let sequence;
 let strict;
 let reset = false;
 let on = false;
+let clicked = 0;
+
 function restart( ) {
     scoreOutput.innerHTML = "";
     score = 0;
     compOrder = [ ];
     counterLimit = 1;
+    light.style.backgroundColor = "#000";
+    quadrants.forEach((quadrant)=>quadrant.classList.remove("active"))
 }
-function runStrict( ) {
-    if ( strict ) {
-        restart( );
-        on = true;
-        glowRandom( );
-        generateArray( );
-    }
-}
+
 function begin( ) {
-    on = !on; //turns game on and off;
+    clicked += 1
+    if(clicked % 2 !== 0){on = true}; //turns game on and off;
+    if (clicked % 2 === 0){
+      on = false;
+
+    }
     console.log( on );
     if ( !on ) {
         restart( );
@@ -81,6 +84,7 @@ function glow( event ) {
         if ( strict ) {
             compOrder = [ ];
             generateArray( );
+            console.log(compOrder)
         }
         /* function beneath is to allow the sequence to be repeated if the incorrect answer is input firstly a scaled timeout to prevent replay all firing off at once*/
         function repeatPattern( j ) {
@@ -135,6 +139,7 @@ function randomNum( ) {
 }
 strictBtn.addEventListener('click', ( ) => {
     strict = true;
-    runStrict( );
+    light.style.backgroundColor = "rgb(245, 64, 24)";
+    // runStrict( );
 })
 toggleStart.addEventListener( 'click', begin );
