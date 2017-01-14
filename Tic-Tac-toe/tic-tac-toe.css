@@ -20,6 +20,15 @@
   -ms-flex-direction: column;
   flex-direction: column;
 }
+.pick-type{
+height: 4em;
+width: 4em;
+background-color: yellow;
+border: solid black 1px;
+}
+
+
+
 
 .game-row{
   display: -webkit-flex;
