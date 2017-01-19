@@ -7,7 +7,6 @@ let cross = false;
 let endgame = false;
 
 
-
 reset.addEventListener('click',()=>{
   gameSquares.forEach((square)=>{
     if(square.firstChild){
