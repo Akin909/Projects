@@ -1,0 +1,52 @@
+.top{
+  text-align: center;
+  border: 1px solid;
+}
+h1{
+  font-family: "Bungee Shade",cursive;
+}
+.boxes{
+  padding: 10px 10px;
+  display: flex;
+  margin-top: 2%;
+  flex-direction:column;
+  justify-content: center;
+  margin:2% auto;
+  flex-wrap: wrap;
+  border: 0px solid;
+  
+  border-radius: 5px;
+  width: 50%;
+}
+.search{
+  width:80%;
+  align-content: center;
+  background: white;
+  box-shadow: -28px 23px 24px 0px rgba(0,0,0,0.57);
+  align-items: center;
+  font-family: "Bitter",serif;
+}
+body{
+  background: url("https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png");
+  background-size: cover;
+  margin:0px 0px;
+
+  
+}
+.searchBar{
+ border-radius: 8px;
+font-family: "Bitter",serif;
+}
+#search{
+ border-radius: 8px; 
+ border: 2px solid;
+ background: ;
+ 
+}
+.searchItems{
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin: 6px 8px;
+  background: #E3E3E4;
+  
+}
