@@ -1,3 +1,8 @@
+const squares = document.querySelectorAll('.game-square');
+const marker = document.querySelectorAll('.pick-type');
+
+var playerMark = "X"
+squares.addEventListener('click',makeMove)
 /* The original board
  * O|  |X
  * ------
@@ -7,7 +12,15 @@
  * */
 
 
-var origBoard = ["0", "1", "X", "X", 4, "X", 6, "0", "0"]
+function makeMove(event,playerMark) {
+	var square = event.target;
+	if (square.className.includes('available')) {
+		square.classList.remove('available');
+		square.innerHTML = playerMark
+	}
+}
+var origBoard = []
+// var origBoard = ["0", "1", "X", "X", 4, "X", 6, "0", "0"]
 	//Human and AI player
 var aiPlayer = 'X',
 	huPlayer = 'O';
@@ -35,6 +48,8 @@ function winning(board, player) {
 	}
 }
 
+function minimax(newBoard,player) {
+	
 // Checks for the terminal  states such as win, lose, and tie and returning
 // a value accordingly
 if (winning(newBoard, huPlayer)) {
@@ -49,7 +64,7 @@ if (winning(newBoard, huPlayer)) {
 	return {
 		score: 0
 	};
-}
+
 
 
 var moves = []
@@ -101,11 +116,10 @@ if (player === aiPlayer) {
 			bestMove = i
 		}
 	}
-
+}
 
 	// Return the chosen move (object) from the moves array
 		return moves[bestMove];
-
 }
 
 
@@ -114,6 +128,3 @@ if (player === aiPlayer) {
 
 
 
-
-const squares = document.querySelectorAll('.game-square');
-const marker = document.querySelectorAll('.pick-type');
