@@ -1,9 +1,9 @@
 /* The original board
  * O|  |X
- *------
- *X|  |X
- *------
- * |O |O
+ * ------
+ * X|  |X
+ * ------
+ *  |O |O
  * */
 
 
@@ -45,6 +45,12 @@ if (winning(newBoard,huPlayer)) {
 	return {score:0};
 }
 
+
+var moves = []
+forEach(function(square,index){
+    return ( typeof square === 'string' )
+	
+});
 
 
 
