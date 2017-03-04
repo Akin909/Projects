@@ -46,7 +46,7 @@ function startTimer(event){
       myTimer = setInterval(makeTimer,1000);
     }
     return;
-
+return
 
 }
 
