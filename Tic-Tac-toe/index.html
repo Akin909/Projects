@@ -5,24 +5,15 @@
     <meta charset="utf-8">
     <title>Akin's Tic Tac Toe Game</title>
     <link rel="stylesheet" href="tic-tac-toe.css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
 </head>
 
 <body>
+    <header class="title">
+        Akin's Tic Tac Toe Game
+    </header>
     <div class="outer-container">
         <div class="game-container">
-            <!-- Trigger/Open The Modal -->
-            <button id="modalButton">Choose a tile</button>
-            <!-- The Modal -->
-            <div id="choiceModal" class="modal">
-                <!-- Modal Content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Make a choice</p>
-                    <div class="pick-type X">X</div>
-                    <div class="pick-type O">O</div>
-                    <button class="reset">Reset</button>
-                </div>
-            </div>
             <div class="game-row">
                 <div class="game-square available" data-id="1"></div>
                 <div class="game-square available" data-id="2"></div>
@@ -39,6 +30,23 @@
                 <div class="game-square available" data-id="9"></div>
             </div>
         </div>
+        <!-- Trigger/Open The Modal -->
+        <!-- The Modal -->
+        <div id="choiceModal" class="modal">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Make a choice</p>
+                <div class="choice-container">
+                    <div class="pick-type X">X</div>
+                    <div class="pick-type O">O</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button id="modalButton">Choose a tile</button>
+        <button class="reset">Reset</button>
     </div>
     <script type="text/javascript" src="tic-tac-toe.js">
     </script>

@@ -1,5 +1,6 @@
 const squares = document.querySelectorAll('.game-square');
 const marker = document.querySelectorAll('.pick-type');
+let currentPlayer;
 
 function huPlayer(choice) {
     if (!choice) {
@@ -39,11 +40,15 @@ const modal = document.getElementById('choiceModal');
 const button = document.getElementById('modalButton');
 //Get the span
 const span = document.querySelector('.close');
-// When user clicks button the modal opens
-button.addEventListener('click', function() {
-    modal.style.display = 'block';
-});
-// When user clicks on the span the modal closes
+//Modal should appear on page load
+window.onload = function() {
+        modal.style.display = 'block';
+    }
+    // When user clicks button the modal opens
+    // button.addEventListener('click', function() {
+    //     modal.style.display = 'block';
+    // });
+    // When user clicks on the span the modal closes
 span.addEventListener('click', function() {
     modal.style.display = 'none';
 })
@@ -69,36 +74,49 @@ document.addEventListener('click', function(event) {
 
 
 
-const pick = document.querySelector(".pick-type");
+const pick = document.querySelectorAll(".pick-type");
 let choice;
-pick.addEventListener('click', function(event) {
-    choice = pick.innerHTML;
-    modal.style.display = 'none';
+pick.forEach((pick) => {
+    pick.addEventListener('click', function(event) {
+        const modalButton = document.querySelector('#modalButton');
+        choice = pick.innerHTML;
+        modal.style.display = 'none';
+        if (modalButton) {
+            modalButton.style.opacity = '0';
+        }
+    })
 })
+
 
 //**************************************************
 //* Move Making function                           *
 //**************************************************
 function makeMove(event) {
-    console.log(choice);
     let human = huPlayer(choice);
-    let ai = aiPlayer(huPlayer);
-    console.log('human ', human);
+    let ai = aiPlayer(huPlayer(choice));
+    console.log('ai', ai);
 
-
+    console.log('choice ', choice);
     let square = event.target;
+    currentPlayer = human;
 
-
-    let currentPlayer = human === ai ? human : ai;
+    console.log(currentPlayer === human);
     console.log('currentPlayer', currentPlayer);
-    if (square.className.includes('available') && currentPlayer !== 'You need to pick X or O') {
+    if (square.className.includes('available') && currentPlayer !==
+        'You need to pick X or O' && currentPlayer === human) {
         square.classList.remove('available');
-        square.innerHTML += currentPlayer;
+        square.innerHTML = currentPlayer;
 
+        currentPlayer = ai
         let availSpots = emptyIndices(origBoard)
         console.log(availSpots);
 
     }
+    // if (currentPlayer === human) {
+    //     currentPlayer = ai;
+    // } else {
+    //     currentPlayer = human;
+    // }
 
     generateBoard(squares)
         // minimax(availSpots, currentPlayer)
