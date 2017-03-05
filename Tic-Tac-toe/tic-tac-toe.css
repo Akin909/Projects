@@ -86,7 +86,7 @@ body {
     height:4em;    
 }
 .modalButton {
-    transition: opacity 0.3s;
+    transition: display 0.3s;
 }
 /* The Close Button */
 .close {

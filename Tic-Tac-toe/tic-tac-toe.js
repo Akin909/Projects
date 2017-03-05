@@ -1,6 +1,9 @@
 const squares = document.querySelectorAll('.game-square');
 const marker = document.querySelectorAll('.pick-type');
 let currentPlayer;
+var origBoard = []
+let human = huPlayer(choice);
+let ai = aiPlayer(huPlayer(choice));
 
 function huPlayer(choice) {
     if (!choice) {
@@ -92,37 +95,33 @@ pick.forEach((pick) => {
 //* Move Making function                           *
 //**************************************************
 function makeMove(event) {
-    let human = huPlayer(choice);
-    let ai = aiPlayer(huPlayer(choice));
     console.log('ai', ai);
 
-    console.log('choice ', choice);
-    let square = event.target;
-    currentPlayer = human;
 
-    console.log(currentPlayer === human);
+    var currentBoard = generateBoard(squares)
+
+    let square = event.target;
+    if (!currentPlayer) {
+        currentPlayer = human;
+    } else if (currentPlayer === ai) {
+        console.log('above minmax');
+        minimax(currentBoard, currentPlayer)
+    }
     console.log('currentPlayer', currentPlayer);
     if (square.className.includes('available') && currentPlayer !==
         'You need to pick X or O' && currentPlayer === human) {
         square.classList.remove('available');
         square.innerHTML = currentPlayer;
 
-        currentPlayer = ai
-        let availSpots = emptyIndices(origBoard)
-        console.log(availSpots);
-
+        if (currentPlayer === human) {
+            currentPlayer = ai;
+        } else {
+            currentPlayer = human;
+        }
     }
-    // if (currentPlayer === human) {
-    //     currentPlayer = ai;
-    // } else {
-    //     currentPlayer = human;
-    // }
 
-    generateBoard(squares)
-        // minimax(availSpots, currentPlayer)
 }
 
-var origBoard = []
 
 //**************************************************
 //* Generate Board                                 *
@@ -141,7 +140,7 @@ function generateBoard(board) {
             origBoard.push(square.dataset.id);
         }
     })
-    console.log('full board', origBoard)
+    return origBoard
 }
 
 // returns a list of the indexes of empty spots on the board
@@ -170,76 +169,79 @@ function winning(board, player) {
     }
 }
 
-// function minimax(newBoard, player) {
-//
-//  // Checks for the terminal  states such as win, lose, and tie and returning
-//  // a value accordingly
-//  if (winning(newBoard, huPlayer)) {
-//   return {
-//    score: -10
-//   };
-//  } else if (winning(newBoard, aiPlayer)) {
-//   return {
-//    score: 10
-//   };
-//  } else if (availSpots.length === 0) {
-//   return {
-//    score: 0
-//   };
-//
-//
-//
-//   var moves = []
-//    //Move through the available spots
-//   origBoard.forEach(function(square, index) {
-//    // Create an object for each and store the index of that spot
-//    var move = {};
-//    move.index = newBoard[availSpots[index]];
-//
-//    // set the empty spot to current player
-//    newBoard[availSpots[index]] = player;
-//    // collect the score resulted from calling minimax on the opponent of the
-//    // current player
-//
-//    if (player == aiPlayer) {
-//     var result = minimax(newBoard, huPlayer)
-//     move.score = result.score;
-//    } else {
-//     var result = minimax(newBoard, aiPlayer);
-//
-//    }
-//    // reset the spot to empty
-//    newBoard[availSpots[index]] = move.index;
-//
-//    //push the object to the array
-//    move.push(moves);
-//
-//
-//   });
-//
-//   // if it is the computer's turn loop over the moves and choose the move with
-//   // the highest score
-//   var bestMove;
-//
-//   if (player === aiPlayer) {
-//    var bestScore = -1000;
-//    for (var i = 0, len = moves.length; i < len; i++) {
-//     if (moves[i].score > bestScore) {
-//      bestScore = moves[i].score;
-//      bestMove = i;
-//     }
-//    }
-//   } else {
-//    // else loop over the moves and choose the move with the lowest score
-//    var bestScore = 10000;
-//    for (var i = 0, len = moves.length; i < len; i++) {
-//     if (moves[i].score < bestScore) {
-//      bestScore = moves[i].score;
-//      bestMove = i
-//     }
-//    }
-//   }
-//
-//   // Return the chosen move (object) from the moves array
-//   return moves[bestMove];
-//  }
+function minimax(newBoard, player) {
+    console.log('newBoard', newBoard, 'player', player);
+    let availSpots = emptyIndices(origBoard)
+        // Checks for the terminal  states such as win, lose, and tie and returning
+        // a value accordingly
+    if (winning(newBoard, huPlayer)) {
+        return {
+            score: -10
+        };
+    } else if (winning(newBoard, aiPlayer)) {
+        return {
+            score: 10
+        };
+    } else if (availSpots.length === 0) {
+        return {
+            score: 0
+        }
+    }
+
+
+
+    var moves = []
+        //Move through the available spots
+    origBoard.forEach(function(square, index) {
+        // Create an object for each and store the index of that spot
+        var move = {};
+        move.index = newBoard[availSpots[index]];
+
+        // set the empty spot to current player
+        newBoard[availSpots[index]] = player;
+        // collect the score resulted from calling minimax on the opponent of the
+        // current player
+
+        if (player == aiPlayer) {
+            var result = minimax(newBoard, huPlayer)
+            move.score = result.score;
+        } else {
+            result = minimax(newBoard, aiPlayer);
+
+        }
+        // reset the spot to empty
+        newBoard[availSpots[index]] = move.index;
+
+        //push the object to the array
+        move.push(moves);
+
+
+    });
+
+    // if it is the computer's turn loop over the moves and choose the move with
+    // the highest score
+    var bestMove;
+    var bestScore;
+    if (player === aiPlayer) {
+        bestScore = -1000;
+        for (var i = 0, len = moves.length; i < len; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    } else {
+        // else loop over the moves and choose the move with the lowest score
+        bestScore = 10000;
+        for (i = 0, len = moves.length; i < len; i++) {
+            if (moves[i].score < bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i
+            }
+        }
+    }
+
+    // Return the chosen move (object) from the moves array
+    console.log(moves[bestMove])
+    return moves[bestMove];
+}
